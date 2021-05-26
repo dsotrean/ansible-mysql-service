@@ -1,7 +1,7 @@
 ---
 
 - name: Install MySQL
-  hosts: mysql-service
+  hosts: frncesnapora01.sd.galderma.com
   tasks:
     - name: Install MySQL
       action: $ansible_pkg_mgr pkg=mysql-server state=installed
@@ -10,7 +10,7 @@
 
 
 - name: Configure MySQL
-  hosts: mysql-service
+  hosts: frncesnapora01.sd.galderma.com
   tasks:
     - name: Configure my.cnf
       copy: src=./files/my.cnf
