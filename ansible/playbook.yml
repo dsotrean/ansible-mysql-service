@@ -3,15 +3,19 @@
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
   tasks:
-    - name: Install MySQL
-      action: yum pkg=$item state=installed
-      with_items:
-        - mysql-server-core-5.5
-        - mysql-client-core-5.5
-        - libmysqlclient-dev
-        - python-mysqldb
-        - mysql-server
-        - mysql-client
+    - name: Install the MySQL repo 
+      yum: 
+        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 
+        state: present  
+ 
+    - name: Override variables for MySQL (RedHat) 
+      set_fact: 
+        mysql_daemon: mysqld 
+        mysql_packages: ['mysql-server'] 
+        mysql_log_error: /var/lib/mysql/error.log 
+        mysql_syslog_tag: mysqld 
+        mysql_pid_file: /var/run/mysqld/mysqld.pid 
+        mysql_socket: /var/lib/mysql/mysql.sock       
 
 - name: Configure MySQL
   hosts: frncesnapora01.sd.galderma.com
