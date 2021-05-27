@@ -18,9 +18,9 @@
         
     - name: Set new pass for Root + restart mysql  
       shell: "systemctl stop mysqld"
-      shell: "systemctl set-environment MYSQLD_OPTS="--skip-grant-tables" "
+      shell: systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
       shell: "systemctl start mysqld"
-      shell: "mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = root AND Host = localhost" "
+      shell: mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = root AND Host = localhost"
  
     - name: start mysql
       service: name=mysqld
