@@ -3,9 +3,7 @@
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
   tasks:
-    - name: Install MySQL repo
-      yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
- 
+     
     - name: Install MySQL 5.7
       yum: pkg={{ item }}
       with_items:
