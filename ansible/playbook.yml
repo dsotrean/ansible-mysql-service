@@ -10,10 +10,10 @@
       yum: name=mysql update_cache=yes state=present
     
     - name: start up the mysql service  
-      shell: "service mysql start"
+      shell: "systemctl start mysqld"
     
     - name: ensure mysql is enabled to run on startup  
-      service: name=mysql state=started enabled=true
+      service: name=mysqld state=started enabled=true
 
     - name: update mysql root password for all root accounts  
       mysql_user:  
