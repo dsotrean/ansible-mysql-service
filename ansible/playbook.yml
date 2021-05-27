@@ -16,15 +16,12 @@
         - mysql
         - MySQL-python
         
-    - name: start up the mysql service  
+    - name: Set new pass for Root + restart mysql  
       shell: |
         systemctl stop mysqld
         systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
         systemctl start mysqld
-    
-    - name: Set new password for root
-      command: >        
-        "mysql UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost'"
+        mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = root AND Host = localhost";
  
     - name: start mysql
       service: name=mysqld
