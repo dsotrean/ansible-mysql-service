@@ -4,7 +4,7 @@
   hosts: frncesnapora01.sd.galderma.com
   tasks:
     - name: Install MySQL
-      action: yum name={{ item }}
+      action: yum name={{ item }} state=installed
       with_items:
         - MySQL-python
         - mysql
