@@ -9,8 +9,8 @@
     - name: Install MySQL 5.7
       yum: name=mysql update_cache=yes state=present
       with_items:
-        - mysql-community-server
-        - MySQL-python 
+        - mysql
+        - mysql-server
 
     - name: Start the MySQL service
       service:
