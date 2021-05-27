@@ -7,7 +7,7 @@
    
   tasks:   
     - name: install mysql     
-      yum: name=mysql update_cache=yes cache_valid_time=3600 state=present
+      yum: name=mysql update_cache=yes state=present
     
     - name: start up the mysql service  
       shell: "service mysql start"
