@@ -11,7 +11,8 @@
       with_items:
         - mysql-community-server
         - MySQL-python     
-        
+
+  handlers:
     - name: start mysql
       hosts: frncesnapora01.sd.galderma.com
       service: name=mysql
