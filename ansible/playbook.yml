@@ -17,11 +17,5 @@
                enabled=yes
                state=started
  
-     - name: Configure the root credentials
+    - name: Configure the root credentials
       action: command mysqladmin -u root -p daniel
- 
-
-
-
-# /sbin/iptables -A INPUT -i eth0 -s 192.168.33.0/24 -p tcp --destination-port 3306 -j ACCEPT
-# service iptables save
