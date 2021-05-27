@@ -16,10 +16,20 @@
         - mysql
         - MySQL-python
         
-    - name: Set new pass for Root + restart mysql  
-      shell: "systemctl stop mysqld"
+     - name: stop mysql
+      service: name=mysqld
+               enabled=no
+               state=stopped
+        
+    - name: Set variable      
       shell: systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
-      shell: "systemctl start mysqld"
+    
+    - name: start mysql
+      service: name=mysqld
+               enabled=yes
+               state=started
+               
+    - name: Set new pass for Root
       shell: mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = root AND Host = localhost"
  
     - name: start mysql
@@ -37,13 +47,6 @@
     - name: create db
       mysql_user: name=testdb state=present login_user=root login_password="{{ mysql_root_password }}" 
               
-    - name: bind mysql remote address
-      ini_file: dest=/etc/my.cnf
-            section=mysqld
-            option=bind-address
-            value={{item}}
-      with_items: mysql.bind
-      
     - name: start mysql
       service: name=mysqld
                enabled=yes
