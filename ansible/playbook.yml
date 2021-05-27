@@ -4,10 +4,14 @@
   hosts: frncesnapora01.sd.galderma.com
   tasks:
     - name: Install MySQL
-      action: "{{ ansible_pkg_mgr }} pkg=mysql-server state=installed"
-    - name: Add Python MySQL DB
-      action: "{{ ansible_pkg_mgr }} pkg=python-mysqldb state=installed"
-
+      action: yum pkg=$item state=installed
+      with_items:
+        - mysql-server-core-5.5
+        - mysql-client-core-5.5
+        - libmysqlclient-dev
+        - python-mysqldb
+        - mysql-server
+        - mysql-client
 
 - name: Configure MySQL
   hosts: frncesnapora01.sd.galderma.com
