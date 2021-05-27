@@ -30,9 +30,10 @@
                state=started
                
     - name: Set new pass for Root
-      shell: |
-        - mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost'"
-        - mysql -u root -e "flush privileges"
+      shell: mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost'"
+    
+    - name: Set new pass for Root
+      shell: mysql -u root -e "flush privileges"        
  
     - name: restart mysql
       service: name=mysqld
