@@ -16,7 +16,7 @@
         - mysql
         - MySQL-python
         
-     - name: stop mysql
+    - name: stop mysql
       service: name=mysqld
                enabled=no
                state=stopped
@@ -50,4 +50,4 @@
     - name: start mysql
       service: name=mysqld
                enabled=yes
-               state=restarted  
+               state=restarted
