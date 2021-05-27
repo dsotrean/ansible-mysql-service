@@ -12,7 +12,7 @@
         - mysql-community-server
         - MySQL-python 
 
-- name: Start the MySQL service
+	  - name: Start the MySQL service
       service:
         name: mysql
         state: started
