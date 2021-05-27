@@ -1,16 +1,18 @@
 ---
+  
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
-  
   tasks:
-    - name: Install MySQL
+    - name: Install MySQL repo
+      yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
+ 
+    - name: Install MySQL 5.7
       yum: name=mysql update_cache=yes state=present
       with_items:
-        - MySQL-python
-        - mysql
-        - mysql-server
-
-    - name: Start the MySQL service
+        - mysql-community-server
+        - MySQL-python 
+		
+	- name: Start the MySQL service
       service:
         name: mysql
         state: started
