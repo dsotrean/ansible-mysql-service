@@ -3,10 +3,12 @@
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
   tasks:
-    - name: Install the MySQL repo 
-      yum: 
-        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 
-        state: present  
+    - name: Install MySQL
+      action: yum name={{ item }}
+      with_items:
+        - MySQL-python
+        - mysql
+        - mysql-server 
  
     - name: Override variables for MySQL (RedHat) 
       set_fact: 
