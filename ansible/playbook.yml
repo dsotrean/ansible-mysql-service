@@ -17,7 +17,7 @@
   tasks:
     - name: Configure my.cnf
       copy: src=./files/my.cnf
-            dest=/etc/my.cnf
+            dest=/root/.my.cnf
             owner=root
             group=root
             mode=0640
