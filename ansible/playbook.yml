@@ -11,10 +11,7 @@
       with_items:
         - mysql-community-server
         - MySQL-python    
-
-      
-     
-  handlers:
+ 
     - name: start mysql
       service: name=mysqld
                enabled=yes
