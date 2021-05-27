@@ -1,16 +1,12 @@
 ---
-- name: Install wget
-  hosts: frncesnapora01.sd.galderma.com
-  tasks:
-    - action: "{{ ansible_pkg_mgr }} name=wget state=present"
   
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
   tasks:
     - name: Install MySQL
-      action: $ansible_pkg_mgr pkg=mysql-server state=installed
+      action: "{{ ansible_pkg_mgr }} pkg=mysql-server state=installed"
     - name: Add Python MySQL DB
-      action: $ansible_pkg_mgr pkg=python-mysqldb state=installed
+      action: "{{ ansible_pkg_mgr }} pkg=python-mysqldb state=installed"
 
 
 - name: Configure MySQL
