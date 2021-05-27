@@ -4,6 +4,7 @@
   hosts: frncesnapora01.sd.galderma.com
   vars:
     mysql_root_password: daniel
+    
   tasks:
      
     - name: Install MySQL 5.7
@@ -14,8 +15,7 @@
                enabled=yes
                state=started
  
-    - name: update mysql root password for all root accounts
-      mysql_user: root
+    - name: update mysql root password for all root accounts      
       host: localhost
       password: "{{ mysql_root_password }}"
       login_user: root
@@ -29,12 +29,9 @@
         - gcc-c++
         - MySQL-python
         
-    - name: create db user
+    - name: create db
       mysql_user: name=testdb state=present login_user=root login_password="{{ mysql_root_password }}" 
-      
-    - name: create mysql database
-      mysql_db: name=testdb state=present
-      
+              
     - name: bind mysql remote address
       ini_file: dest=/etc/my.cnf
             section=mysqld
