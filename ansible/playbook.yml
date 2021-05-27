@@ -24,7 +24,7 @@
     
     - name: Set new password for root
       command: >        
-        mysql UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost';
+        "mysql UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost'"
  
     - name: start mysql
       service: name=mysqld
