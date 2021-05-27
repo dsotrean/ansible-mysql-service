@@ -10,7 +10,8 @@
       yum: pkg={{ item }}
       with_items:
         - mysql-community-server
-        - MySQL-python    
+        - MySQL-python
+        - mysql
  
     - name: start mysql
       service: name=mysqld
