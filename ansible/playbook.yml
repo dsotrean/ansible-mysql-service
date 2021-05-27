@@ -15,12 +15,14 @@
                enabled=yes
                state=started
  
-    - name: update mysql root password for all root accounts      
-      password: "{{ mysql_root_password }}"
-      login_user: root
-      login_password: "{{ mysql_root_password }}"
-      check_implicit_admin: yes
-      priv: "*.*:ALL,GRANT"
+    - name: update mysql root password for all root accounts
+      mysql_user:
+        name: root
+        host: "{{ item }}"
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        check_implicit_admin: yes
+        priv: "*.*:ALL,GRANT"
     
     - name: install required python MySQLdb lib to create databases and users
       yum: name={{item}} state=present
