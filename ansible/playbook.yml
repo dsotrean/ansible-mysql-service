@@ -16,7 +16,6 @@
                state=started
  
     - name: update mysql root password for all root accounts      
-      host: frncesnapora01.sd.galderma.com
       password: "{{ mysql_root_password }}"
       login_user: root
       login_password: "{{ mysql_root_password }}"
