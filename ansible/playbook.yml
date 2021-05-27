@@ -19,7 +19,7 @@
     - name: start up the mysql service  
       shell:
       - "systemctl stop mysqld"
-      - "systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+      - "systemctl set-environment MYSQLD_OPTS="--skip-grant-tables""
       - "systemctl start mysqld"
     
     - name: Set new password for root
