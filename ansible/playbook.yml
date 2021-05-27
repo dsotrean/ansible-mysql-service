@@ -12,12 +12,6 @@
         - mysql-community-server
         - MySQL-python     
 
-  handlers:
-    - name: start mysql
-      hosts: frncesnapora01.sd.galderma.com
-      service: name=mysql
-               enabled=yes
-               state=started
       
 - name: Configure MySQL
   hosts: frncesnapora01.sd.galderma.com
