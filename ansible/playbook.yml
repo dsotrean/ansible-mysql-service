@@ -13,7 +13,7 @@
         - MySQL-python     
         
     - name: start mysql
-    hosts: frncesnapora01.sd.galderma.com
+      hosts: frncesnapora01.sd.galderma.com
       service: name=mysql
                enabled=yes
                state=started
