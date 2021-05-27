@@ -23,8 +23,8 @@
         systemctl start mysqld
     
     - name: Set new password for root
-      community.mysql.mysql_query:        
-        query: UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost';
+      command: >        
+        mysql UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost';
  
     - name: start mysql
       service: name=mysqld
