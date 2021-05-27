@@ -11,7 +11,10 @@
         - mysql-server
 
     - name: Start the MySQL service
-      action: service name=mysqld state=started
+      service:
+        name: mysql
+        state: started
+        enable: true
 
     - name: Configure the root credentials
       action: command mysqladmin -u root -p daniel
