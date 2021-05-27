@@ -1,5 +1,6 @@
 ---
 - name: Install wget
+  hosts: frncesnapora01.sd.galderma.com
   tasks:
     - action: "{{ ansible_pkg_mgr }} name=wget state=present"
   
