@@ -30,9 +30,7 @@
                state=started
                
     - name: Set new pass for Root
-      command: "{{ item }}"
-      args:
-        chdir: "/src/package/"
+      command: "{{ item }}"            
       with_items:
         - mysql -u root -e "UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost'"
         - mysql -u root -e "flush privileges"
