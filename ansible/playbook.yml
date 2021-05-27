@@ -1,8 +1,6 @@
 ---
 - name: Install MySQL
-  hosts: staging_mysql
-  user: daniel
-  sudo: yes
+  hosts: frncesnapora01.sd.galderma.com
   
   tasks:
     - name: Install MySQL
