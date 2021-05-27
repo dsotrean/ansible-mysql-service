@@ -17,5 +17,26 @@
                enabled=yes
                state=started
  
-    - name: Configure the root credentials
-      shell: "mysqladmin -u root -p daniel"
+    - name: install required python MySQLdb lib to create databases and users
+      yum: name={{item}} state=present
+      with_items:
+        - gcc-c++
+        - MySQL-python
+        
+    - name: create db user
+      mysql_user: name=daniel password=daniel priv=ALL host=localhost state=present
+      
+    - name: create mysql database
+      mysql_db: name=testdb state=present
+      
+    - name: bind mysql remote address
+      ini_file: dest=/etc/my.cnf
+            section=mysqld
+            option=bind-address
+            value={{item}}
+      with_items: mysql.bind
+      
+    - name: start mysql
+      service: name=mysqld
+               enabled=yes
+               state=restarted  
