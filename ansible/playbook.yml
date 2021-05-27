@@ -10,36 +10,19 @@
       yum: pkg={{ item }}
       with_items:
         - mysql-community-server
-        - MySQL-python     
+        - MySQL-python    
 
       
-- name: Configure MySQL
-  hosts: frncesnapora01.sd.galderma.com
-  tasks:
-    - name: Add mysql-user
-      mysql_user: name=daniel
-                  password=daniel
-                  priv=*.*:ALL
-                  state=present
-                  
-    - name: Configure my.cnf
-      copy: src=./files/my.cnf
-            dest=/root/my.cnf
-            owner=root
-            group=root
-            mode=0640
-      notify:
-        - restart mysql 
-       
+     
   handlers:
     - name: start mysql
-      service: name=mysql
+      service: name=mysqld
                enabled=yes
                state=started
-    - name: restart mysql
-      service: name=mysql
-               enabled=yes
-               state=restarted
+ 
+     - name: Configure the root credentials
+      action: command mysqladmin -u root -p daniel
+ 
 
 
 
