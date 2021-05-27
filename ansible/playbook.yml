@@ -6,9 +6,9 @@
     mysql.password: daniel
     mysql.host: frncesnapora01.sd.galderma.com
     mysql.db: daniel_db1
-    mysql.privileges: ALL
+    mysql.privileges: *.*:ALL
     
-  
+  tasks:
     - name: Install MySQL repo
       yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
 
