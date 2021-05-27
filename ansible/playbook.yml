@@ -1,5 +1,8 @@
 ---
-
+- name: Install wget package (RedHat based)
+  action: yum name='wget' state=installed
+  only_if: "'$ansible_pkg_mgr' == 'yum'"
+  
 - name: Install MySQL
   hosts: frncesnapora01.sd.galderma.com
   tasks:
