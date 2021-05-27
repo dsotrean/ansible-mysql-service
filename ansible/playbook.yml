@@ -14,21 +14,24 @@
       with_items:
         - mysql-community-server
         - mysql
-        - MySQL-python      
+        - MySQL-python
+        
+    - name: start up the mysql service  
+      shell:
+      - "systemctl stop mysqld"
+      - "systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+      - "systemctl start mysqld"
+    
+    - name: Set new password for root
+      community.mysql.mysql_query:
+        login_db: acme
+        query: UPDATE mysql.user SET authentication_string = PASSWORD('daniel') WHERE User = 'root' AND Host = 'localhost';
  
     - name: start mysql
       service: name=mysqld
                enabled=yes
-               state=started
- 
-    - name: update mysql root password for all root accounts
-      mysql_user:
-        name: root
-        host: frncesnapora01.sd.galderma.com
-        login_user: root
-        login_password: "{{ mysql_root_password }}"
-        check_implicit_admin: yes
-        priv: "*.*:ALL,GRANT"
+               state=restarted
+    
     
     - name: install required python MySQLdb lib to create databases and users
       yum: name={{item}} state=present
