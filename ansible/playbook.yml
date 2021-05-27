@@ -4,7 +4,7 @@
   
   tasks:
     - name: Install MySQL
-      action: yum name=$item state=present
+      yum: name=mysql update_cache=yes state=present
       with_items:
         - MySQL-python
         - mysql
