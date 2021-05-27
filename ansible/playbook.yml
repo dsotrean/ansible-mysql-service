@@ -24,7 +24,7 @@
     - name: update mysql root password for all root accounts
       mysql_user:
         name: root
-        host: "{{ item }}"
+        host: frncesnapora01.sd.galderma.com
         login_user: root
         login_password: "{{ mysql_root_password }}"
         check_implicit_admin: yes
