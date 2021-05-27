@@ -1,47 +1,40 @@
----
-  
+---   
 - name: Install MySQL
-  hosts: frncesnapora01.sd.galderma.com
-  tasks:
-    - name: Install MySQL repo
-      yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
- 
-    - name: Install MySQL 5.7
-      yum: pkg={{ item }}
-      with_items:
-        - mysql-community-server
-        - MySQL-python     
+  hosts: frncesnapora01.sd.galderma.com   
+   
+  vars:   
+    mysql_root_password: daniel  
+   
+  tasks:   
+    - name: install mysql     
+      apt: name=mysql update_cache=yes cache_valid_time=3600 state=present
+    
+    - name: start up the mysql service  
+      shell: "service mysql start"
+    
+    - name: ensure mysql is enabled to run on startup  
+      service: name=mysql state=started enabled=true
 
+    - name: update mysql root password for all root accounts  
+      mysql_user:  
+         name: daniel  
+         host: "{{ item }}"  
+         password: "{{ mysql_root_password }}"  
+         login_user: daniel  
+         login_password: "{{ mysql_root_password }}"  
+         check_implicit_admin: yes  
+         priv: "*.*:ALL,GRANT"  
+      with_items:  
+       - "{{ ansible_hostname }}"  
+       - 127.0.0.1  
+       - ::1  
+       - localhost
+	   
+    - name: create a new database  
+      mysql_db: name=testdb state=present login_user=root login_password="{{ mysql_root_password }}"
       
-- name: Configure MySQL
-  hosts: frncesnapora01.sd.galderma.com
-  tasks:
-    - name: Add mysql-user
-      mysql_user: name=daniel
-                  password=daniel
-                  priv=*.*:ALL
-                  state=present
-                  
-    - name: Configure my.cnf
-      copy: src=./files/my.cnf
-            dest=/root/.my.cnf
-            owner=root
-            group=root
-            mode=0640
-      notify:
-        - restart mysql 
-       
-  handlers:
-    - name: start mysql
-      service: name=mysql
-               enabled=yes
-               state=started
-    - name: restart mysql
-      service: name=mysql
-               enabled=yes
-               state=restarted
-
-
-
-# /sbin/iptables -A INPUT -i eth0 -s 192.168.33.0/24 -p tcp --destination-port 3306 -j ACCEPT
-# service iptables save
+    - name: add sample data to database  
+      copy: src=dump.sql dest=/tmp/dump.sql
+      
+    - name: insert sample data into database  
+      mysql_db: name=testdb state=import target=/tmp/dump.sql login_user=daniel login_password="{{ mysql_root_password }}"
